@@ -17,13 +17,27 @@ Enemy.prototype.update = function (dt) {
   // which will ensure the game runs at the same speed for
   // all computers.
 
-  setInterval(() => this.x += 101, dt);
+  if (!this.x && !this.y) {
+    const z = this._getRow();
+
+    this.x = 0;
+    this.y = z * 60;
+  }
+
+  setInterval(() => this.x += 1, 100000000 * dt);
 };
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function () {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
+
+Enemy.prototype._getRow = function () {
+  const min = Math.ceil(0);
+  const max = Math.floor(2);
+
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -39,7 +53,6 @@ Player.prototype.update = function (dt) {
   if (!this.x && !this.y) {
     this.x = canvas.width / 2 - Resources.get(this.sprite).width / 2;
     this.y = 4 * 101;
-
   }
 };
 
@@ -72,7 +85,7 @@ Player.prototype.handleInput = function (direction) {
 
 var allEnemies = [];
 
-for (let i = 0; i > 2; i++) {
+for (let i = 0; i < 1; i++) {
   allEnemies.push(new Enemy());
 }
 
