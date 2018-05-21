@@ -60,7 +60,6 @@ Player.prototype.render = function () {
   if (this.y < 0) {
     this.points += 1;
     this.y = 404;
-    console.log(this.points);
     
   } else if (this.y > 404) {
     this.y = 404;
@@ -77,6 +76,15 @@ Player.prototype.render = function () {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+Player.prototype._checkColision = function() {
+  allEnemies.forEach(e => {
+    if (player.y == e.y && player.x > e.x - 101 && player.x < e.x + 101){
+      this.points = 0;
+      this.reset();
+    } 
+  });
+}
+ 
 Player.prototype.handleInput = function (direction) {
   switch (direction) {
     case 'left':
@@ -97,6 +105,7 @@ Player.prototype.handleInput = function (direction) {
   }
 
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+  this._checkColision();
 }
 
 Player.prototype.reset = function() {
