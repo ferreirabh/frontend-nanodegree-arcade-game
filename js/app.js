@@ -31,7 +31,7 @@ Enemy.prototype.render = function () {
 };
 
 Enemy.prototype._checkColision = function() {
-  if (this.x == player.x && this.y == player.y) {
+  if (this.x + 70 == player.x && this.y == player.y) {
     player.points = 0;
     player.reset();
   }
@@ -62,9 +62,15 @@ Player.prototype.render = function () {
     this.y = 404;
     console.log(this.points);
     
-    
   } else if (this.y > 404) {
     this.y = 404;
+  } 
+  
+  if (this.x < 0) {
+    this.x = 404;
+
+  } else if (this.x > 404) {
+    this.x = 0;
   }
 
 
@@ -99,7 +105,7 @@ Player.prototype.reset = function() {
 }
 
 Player.prototype.updatePointsDisplay = function() {
-  this._display.textContent = `${this.points} pontos`;
+  this._display.textContent = `${this.points} points`;
 }
 
 
@@ -109,13 +115,6 @@ var allEnemies = [];
 for (let i = 0; i < 3; i++) {
   allEnemies.push(new Enemy(i));
 }
-
-
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
-
-
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
