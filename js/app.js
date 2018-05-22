@@ -74,6 +74,7 @@ Player.prototype.render = function () {
 
 
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+  this._checkColision();
 };
 
 Player.prototype._checkColision = function() {
@@ -105,7 +106,6 @@ Player.prototype.handleInput = function (direction) {
   }
 
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-  this._checkColision();
 }
 
 Player.prototype.reset = function() {
